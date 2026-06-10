@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعالم رفيف الخاص ✨</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap');
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            overflow: hidden;
+            position: relative;
+            padding: 15px;
+        }
+
+        /* حاوية الصفحات */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .step {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step.active {
+            display: flex;
+            animation: fadeIn 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* أزرار التنقل السفلية */
+        .nav-buttons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; 
+            margin-top: 2rem; 
+            width: 100%; 
+            z-index: 20; 
+        }
+        .btn {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn:hover, .btn:active {
+            background: #ffffff;
+            color: #0f172a;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        /* --- المرحلة 1: مطر القلوب البطيء --- */
+        .click-prompt {
+            font-size: 1.4rem;
+            color: #ffffff;
+            cursor: pointer;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            padding: 20px 40px;
+            border-radius: 50px;
+            animation: pulseText 2s infinite;
+            -webkit-tap-highlight-color: transparent;
+            width: 90%;
+            max-width: 400px;
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); }
+        }
+        .falling-heart {
+            position: absolute;
+            font-size: 3rem;
+            color: #ff3366;
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
+            animation: fallDown 6s linear forwards; /* نزول بطيء جداً */
+            z-index: 15;
+        }
+        @keyframes fallDown {
+            0% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(105vh) scale(1); opacity: 0; }
+        }
+        
+        /* القلب الكبير جداً والأحمر */
+        .big-heart {
+            font-size: 12rem; /* حجم ضخم جداً */
+            color: #ff3366;
+            cursor: pointer;
+            text-shadow: 0 0 40px rgba(255, 51, 102, 0.9);
+            animation: beat 1s infinite ease-in-out;
+            display: none;
+            z-index: 16;
+            -webkit-tap-highlight-color: transparent;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        /* نصوص عائمة بدون مستطيلات أو مربعات خلفية */
+        .clean-text-flow {
+            color: #ffffff;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            animation: zoomIn 0.6s ease forwards;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* النجوم المتلألئة في الخلفية */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* --- المرحلة 3: الصاروخ العملاق والصورة الأكبر --- */
+        .rocket {
+            position: absolute;
+            bottom: -150px;
+            font-size: 8rem; /* صاروخ كبير جداً ومميز */
+            transform: rotate(-45deg);
+            display: none;
+            z-index: 25;
+            transition: all 2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        /* الصورة المنبثقة مباشرة بدون حبال */
+        .photo-container {
+            display: none;
+            opacity: 0;
+            width: 260px; /* حجم أكبر للصورة */
+            height: 330px;
+            margin: 0 auto 1.5rem auto;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .photo-container.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+        .rafif-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 8px solid #ffffff;
+            border-bottom: 40px solid #ffffff;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+            border-radius: 8px;
+        }
+
+        /* --- سحاب السترة (Zipper Cloud) --- */
+        .zipper-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 40;
+            transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .zipper-line {
+            width: 6px;
+            height: 50%;
+            background: #ffffff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .zipper-pull {
+            font-size: 4.5rem;
+            cursor: pointer;
+            z-index: 45;
+            animation: bounceZip 2s infinite ease-in-out;
+            -webkit-tap-highlight-color: transparent;
+            margin-bottom: 20px;
+        }
+        @keyframes bounceZip {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(15px); }
+        }
+
+        /* ورقة الرسالة الأخيرة الفخمة المتناسقة مع الخلفية الأساسية */
+        .black-paper {
+            color: #f1f5f9;
+            padding: 1.5rem;
+            text-align: right;
+            width: 100%;
+            max-height: 65vh;
+            overflow-y: auto;
+            display: none;
+            opacity: 0;
+            transition: all 0.8s ease;
+            -webkit-overflow-scrolling: touch;
+        }
+        .black-paper.reveal {
+            display: block;
+            opacity: 1;
+        }
+
+        /* مطر الورد الأبيض الكثيف لرفيف */
+        .rose-petal {
+            position: absolute;
+            top: -20px;
+            background: radial-gradient(circle, #ffffff 60%, #f1f5f9 100%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.8;
+            pointer-events: none;
+            z-index: 1;
+            animation: fallPetal linear infinite;
+        }
+        @keyframes fallPetal {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الأغنية الأساسية من ملفاتك -->
+    <audio id="bg-music" src="song.mp3" loop></audio>
+
+    <div class="container">
+        
+        <!-- المرحلة 1: مطر القلوب والرسالة الأولى العائمة بدون مربعات -->
+        <div class="step active" id="step-1">
+            <div class="click-prompt" id="start-prompt">اضغطي هنا لبدء مطر القلوب ✨</div>
+            
+            <div class="big-heart" id="the-big-heart">❤️</div>
+
+            <div class="clean-text-flow" id="first-msg" style="display: none;">
+                <h3 style="margin-bottom: 1.5rem; font-size: 2rem; color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.3);">مرحباً رفيف ✨</h3>
+                <p style="font-size: 1.25rem; line-height: 1.9; margin-bottom: 2rem; color: #e2e8f0;">
+                    هذه الصفحة صُنعت خصيصًا لكِ. أتمنى أن تجدي فيها شيئًا يرسم ابتسامة على وجهك، وأن تتذكري دائمًا أنكِ شخص مميز وجميل بطريقتك الخاصة.
+                    <br><br>
+                    استمتعي بوقتك..
+                </p>
+                <button class="btn" id="to-step-2-btn">التالي (الموسيقى) ←</button>
+            </div>
+        </div>
+
+        <!-- المرحلة 2: تشغيل الموسيقى بدون أي صناديق أو مربعات خلفية -->
+        <div class="step" id="step-2">
+            <h1 style="text-shadow: 0 0 15px rgba(255,255,255,0.4); margin-bottom: 2rem; font-size: 2.2rem;">عالم رفيف الموسيقي 🌌</h1>
+            <div class="clean-text-flow">
+                <p style="margin-bottom: 2.5rem; color:#cbd5e1; font-size: 1.2rem; line-height: 1.6;">اضغطي لتشغيل لحنك الخاص قبل الانطلاق بالرحلة</p>
+                <button class="btn" id="play-music-btn" style="background:#ffffff; color:#0f172a; font-weight:700; margin-bottom: 1rem;">▶ تشغيل الأغنية</button>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn" id="back-to-1-btn">السابق</button>
+                <button class="btn" id="to-step-3-btn">التالي (المفاجأة) ←</button>
+            </div>
+        </div>
+
+        <!-- المرحلة 3: انطلاق الصاروخ العملاق وظهور الصورة مباشرة بدون حبال -->
+        <div class="step" id="step-3">
+            <div class="rocket" id="space-rocket">🚀</div>
+            
+            <!-- صورة رفيف تظهر مباشرة بحجم أكبر بعد اختفاء الصاروخ -->
+            <div class="photo-container" id="rafif-photo-box">
+                <img src="yara.jpg" alt="Rafif" class="rafif-photo">
+            </div>
+
+            <div class="nav-buttons" id="step3-nav" style="display:none;">
+                <button class="btn" id="back-to-2-btn">السابق</button>
+                <button class="btn" id="to-step-4-btn">التالي (الرسالة السرية) ←</button>
+            </div>
+        </div>
+
+        <!-- المرحلة 4: سحاب السترة والرسالة العميقة المتناسقة -->
+        <div class="step" id="step-4">
+            
+            <!-- السترة القابلة للفتح لأسفل -->
+            <div class="zipper-container" id="zipper-screen">
+                <div class="zipper-line"></div>
+                <div class="zipper-pull" id="zip-puller">🤐</div>
+                <div style="font-size: 1.2rem; color: #ffffff; padding: 0 20px;">اسحبي أو اضغطي على السحاب لفتح الرسالة...</div>
+            </div>
+
+            <!-- ورقة الرسالة الفخمة المتناسقة مع الخلفية تماماً -->
+            <div class="black-paper" id="final-paper">
+                <p style="font-size: 1.2rem; line-height: 1.9; text-align: justify; text-justify: inter-word;">
+                    إلى رفيف،<br><br>
+                    قد لا تعرفين مقدار الأثر الجميل الذي تتركينه في حياة من حولك، لكن وجودك وحده كافٍ ليجعل كثيرًا من اللحظات أجمل. لديكِ شخصية مميزة تجمع بين اللطف والرقي، وطريقة حديثك تعكس أخلاقًا جميلة واحترامًا يلفت الانتباه.
+                    <br><br>
+                    أنتِ إنسانة تستحق التقدير، ليس فقط بسبب جمالك وأناقتك، بل بسبب قلبك الطيب وروحك الجميلة. هناك أشخاص يتميزون بأمور كثيرة، لكن القليل منهم يجمعون بين الجمال والخلق والاحترام، وأنتِ واحدة من هؤلاء الأشخاص.
+                    <br><br>
+                    لا تجعلي يومًا صعبًا أو كلمة عابرة تجعلك تشكين في نفسك، فأنتِ أقوى مما تظنين، وأقدر على تحقيق أحلامك مما تتخيلين. حافظي على ثقتك بنفسك، وعلى ابتسامتك التي تضيف للمكان دفئًا وجمالًا.
+                    <br><br>
+                    أتمنى أن تحمل لك الأيام القادمة نجاحات كثيرة، وفرصًا جميلة، وأخبارًا تسعد قلبك. وأتمنى أن تبقي دائمًا كما أنتِ؛ إنسانة راقية، طموحة، وذات حضور لا يُنسى.
+                    <br><br>
+                    وفي النهاية، أريدك أن تتذكري شيئًا واحدًا فقط: أنتِ مميزة بطريقتك الخاصة، وقيمتك أكبر بكثير مما تتصورين، وتستحقين كل السعادة والخير الذي يمكن أن تمنحه الحياة.
+                </p>
+            </div>
+
+            <div class="nav-buttons" id="step4-nav" style="display:none; margin-top:2rem;">
+                <button class="btn" id="back-to-3-btn">السابق</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        let totalHeartsGenerated = 7;
+        let heartsFinished = 0;
+        let roseInterval;
+
+        // توليد النجوم اللامعة في الخلفية الثابتة
+        function createStars() {
+            for(let i=0; i<50; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+        function handleEvent(element, eventType, callback) {
+            element.addEventListener(eventType, function(e) {
+                e.preventDefault();
+                callback(e);
+            }, { passive: false });
+        }
+
+        // بدء مطر القلوب الأحمر والبطيء
+        const startPrompt = document.getElementById('start-prompt');
+        const bigHeart = document.getElementById('the-big-heart');
+
+        function initHeartRain() {
+            startPrompt.style.display = 'none';
+            let delay = 0;
+            for (let i = 0; i < totalHeartsGenerated; i++) {
+                setTimeout(() => {
+                    createFallingHeart();
+                }, delay);
+                delay += 600;
+            }
+        }
+        handleEvent(startPrompt, 'click', initHeartRain);
+        handleEvent(startPrompt, 'touchstart', initHeartRain);
+
+        function createFallingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerText = '❤️';
+            heart.style.left = Math.random() * 80 + 10 + 'vw';
+            heart.style.top = '-60px';
+            
+            // عند انتهاء الأنميشن (سواء تم الضغط أو نزلت تلقائياً للأسفل)
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+                checkHeartsProgress();
+            });
+
+            // لو ضغطت عليها تختفي فوراً وتتحسب
+            function clickHeart() {
+                heart.remove();
+                checkHeartsProgress();
+            }
+            heart.addEventListener('click', clickHeart);
+            heart.addEventListener('touchstart', function(e) { e.preventDefault(); clickHeart(); }, { passive: false });
+            
+            document.body.appendChild(heart);
+        }
+
+        function checkHeartsProgress() {
+            heartsFinished++;
+            if(heartsFinished >= totalHeartsGenerated) {
+                bigHeart.style.display = 'block';
+            }
+        }
+
+        // عند الضغط على القلب الكبير جداً
+        function handleBigHeart() {
+            bigHeart.style.display = 'none';
+            document.getElementById('first-msg').style.display = 'block';
+        }
+        handleEvent(bigHeart, 'click', handleBigHeart);
+        handleEvent(bigHeart, 'touchstart', handleBigHeart);
+
+        // التنقل المباشر والسلس بين المراحل
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            if(stepNumber === 3) {
+                triggerRocketScene();
+            }
+            if(stepNumber === 4) {
+                startRoseRain();
+            } else {
+                stopRoseRain();
+            }
+        }
+
+        // روابط أزرار التنقل بالكامل
+        handleEvent(document.getElementById('to-step-2-btn'), 'click', () => goToStep(2));
+        handleEvent(document.getElementById('to-step-2-btn'), 'touchstart', () => goToStep(2));
+
+        handleEvent(document.getElementById('back-to-1-btn'), 'click', () => goToStep(1));
+        handleEvent(document.getElementById('back-to-1-btn'), 'touchstart', () => goToStep(1));
+
+        handleEvent(document.getElementById('to-step-3-btn'), 'click', () => goToStep(3));
+        handleEvent(document.getElementById('to-step-3-btn'), 'touchstart', () => goToStep(3));
+
+        handleEvent(document.getElementById('back-to-2-btn'), 'click', () => goToStep(2));
+        handleEvent(document.getElementById('back-to-2-btn'), 'touchstart', () => goToStep(2));
+
+        handleEvent(document.getElementById('to-step-4-btn'), 'click', () => goToStep(4));
+        handleEvent(document.getElementById('to-step-4-btn'), 'touchstart', () => goToStep(4));
+
+        handleEvent(document.getElementById('back-to-3-btn'), 'click', () => goToStep(3));
+        handleEvent(document.getElementById('back-to-3-btn'), 'touchstart', () => goToStep(3));
+
+        // تشغيل الموسيقى الأساسية
+        function playMusic() {
+            music.play().then(() => {
+                alert("تم تشغيل لحن رفيف الفاخر بنجاح! 🎵 اضغطي التالي الآن.");
+            }).catch(e => {
+                alert("يرجى التأكد من رفع ملف song.mp3 في نفس المجلد لتعمل الموسيقى!");
+            });
+        }
+        handleEvent(document.getElementById('play-music-btn'), 'click', playMusic);
+        handleEvent(document.getElementById('play-music-btn'), 'touchstart', playMusic);
+
+        // أنميشن الصاروخ الضخم وظهور الصورة مباشرة (بدون ألعاب نارية وبدون حبال)
+        function triggerRocketScene() {
+            const rocket = document.getElementById('space-rocket');
+            const photoBox = document.getElementById('rafif-photo-box');
+            const nav = document.getElementById('step3-nav');
+            
+            rocket.style.display = 'block';
+            rocket.style.bottom = '-150px';
+            rocket.style.left = '10%';
+            photoBox.classList.remove('show');
+            nav.style.display = 'none';
+
+            setTimeout(() => {
+                rocket.style.bottom = '85vh';
+                rocket.style.left = '50%';
+            }, 50);
+
+            setTimeout(() => {
+                rocket.style.display = 'none'; // اختفاء الصاروخ مباشرة بدون ألعاب نارية
+                photoBox.classList.add('show'); // انبثاق الصورة بشكل فخم وكبير
+                nav.style.display = 'flex';
+            }, 1950);
+        }
+
+        // فتح سحاب السترة لأسفل (Zipper Cloud)
+        const zipperScreen = document.getElementById('zipper-screen');
+        const zipPuller = document.getElementById('zip-puller');
+
+        function openZipper() {
+            zipPuller.innerText = '🔓';
+            zipperScreen.style.transform = 'translateY(110vh)'; // النزول لأسفل كفتح السترة
+            setTimeout(() => {
+                zipperScreen.style.display = 'none';
+                document.getElementById('final-paper').classList.add('reveal');
+                document.getElementById('step4-nav').style.display = 'flex';
+            }, 850);
+        }
+        handleEvent(zipPuller, 'click', openZipper);
+        handleEvent(zipPuller, 'touchstart', openZipper);
+
+        // مطر الورد الأبيض الكثيف في الرسالة الأخيرة
+        function startRoseRain() {
+            if (roseInterval) return;
+            roseInterval = setInterval(() => {
+                const petal = document.createElement('div');
+                petal.classList.add('rose-petal');
+                const size = Math.random() * 14 + 10;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size}px`;
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                document.body.appendChild(petal);
+                setTimeout(() => { petal.remove(); }, 4800);
+            }, 120);
+        }
+
+        function stopRoseRain() {
+            clearInterval(roseInterval);
+            roseInterval = null;
+            document.querySelectorAll('.rose-petal').forEach(petal => petal.remove());
+        }
+    </script>
+</body>
+</html>
